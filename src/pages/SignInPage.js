@@ -1,5 +1,5 @@
 import { useAuth } from "contexts/auth-context";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import AuthenticationPage from "./AuthenticationPage";
 import { useForm } from "react-hook-form";
@@ -10,9 +10,9 @@ import { Button } from "components/button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { IconEyeClose, IconEyeOpen } from "components/icon";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "firebase-app/firebase-config";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const schema = yup.object({
   email: yup
@@ -34,7 +34,7 @@ const SignInPage = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  const [togglePassword, setTogglePassword] = useState(false);
+
   useEffect(() => {
     const arrErroes = Object.values(errors);
     if (arrErroes.length > 0) {
@@ -75,23 +75,7 @@ const SignInPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password </Label>
-          <Input
-            type={togglePassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password "
-            control={control}
-          >
-            {" "}
-            {!togglePassword ? (
-              <IconEyeClose
-                onClick={() => setTogglePassword(true)}
-              ></IconEyeClose>
-            ) : (
-              <IconEyeOpen
-                onClick={() => setTogglePassword(false)}
-              ></IconEyeOpen>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
         <div className="have-account">
           You have not had an account?{" "}

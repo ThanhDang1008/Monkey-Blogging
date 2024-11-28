@@ -8,7 +8,7 @@ const PageNotFoundStyles = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: ${(props) => props.theme.black};
-  color: white;
+  color: #908383;
   .page-content {
     max-width: 1000px;
     margin: 0 auto;
